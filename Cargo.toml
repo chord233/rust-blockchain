@@ -1,0 +1,93 @@
+[package]
+name = "rust-blockchain"
+version = "0.1.0"
+edition = "2021"
+authors = ["chord233 <chord244@gmail.com>"]
+description = "A comprehensive blockchain implementation in Rust"
+license = "MIT"
+repository = "https://github.com/chord233/rust-blockchain"
+homepage = "https://github.com/chord233/rust-blockchain"
+keywords = ["blockchain", "cryptocurrency", "rust", "p2p", "consensus"]
+categories = ["cryptography", "network-programming"]
+readme = "README.md"
+
+[[bin]]
+name = "node"
+path = "src/bin/node.rs"
+
+[[bin]]
+name = "cli"
+path = "src/bin/cli.rs"
+
+[[bin]]
+name = "miner"
+path = "src/bin/miner.rs"
+
+[dependencies]
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+bincode = "1.3"
+
+# Cryptography
+sha2 = "0.10"
+ring = "0.17"
+secp256k1 = { version = "0.28", features = ["rand-std", "recovery"] }
+rand = "0.8"
+bs58 = "0.5"
+
+# Time
+chrono = { version = "0.4", features = ["serde"] }
+
+# Async runtime
+tokio = { version = "1.0", features = ["full"] }
+tokio-util = { version = "0.7", features = ["codec"] }
+futures = "0.3"
+
+# Networking
+libp2p = { version = "0.53", features = [
+    "tcp",
+    "noise",
+    "yamux",
+    "gossipsub",
+    "mdns",
+    "kad",
+    "request-response",
+    "identify",
+    "ping",
+    "macros"
+] }
+
+# Database
+sled = "0.34"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# CLI
+clap = { version = "4.0", features = ["derive"] }
+
+# Utilities
+hex = "0.4"
+once_cell = "1.19"
+parking_lot = "0.12"
+dashmap = "5.5"
+
+# Numeric types
+num-bigint = "0.4"
+num-traits = "0.2"
+
+[dev-dependencies]
+tokio-test = "0.4"
+proptest = "1.4"
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name = "blockchain_bench"
+harness = false
+path = "benches/blockchain_bench.rs"
